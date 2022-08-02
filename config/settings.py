@@ -45,6 +45,7 @@ class Common(Configuration):
         "rest_framework_simplejwt.token_blacklist",
         'accounts',
         'main',
+        'djoser',
     ]
 
     MIDDLEWARE = [
@@ -106,7 +107,7 @@ class Common(Configuration):
     # https://docs.djangoproject.com/en/3.0/topics/i18n/
     LANGUAGE_CODE = 'en-us'
 
-    TIME_ZONE = 'UTC'
+    TIME_ZONE = 'Africa/Lagos'
 
     USE_I18N = True
 
@@ -144,9 +145,22 @@ class Common(Configuration):
                 'name': 'Authorization',
                 'in': 'header'
             }
-            }
         }
-
+    }
+    
+    DJOSER = {
+    'PASSWORD_RESET_CONFIRM_URL': '#/password/reset/confirm/{uid}/{token}',
+    'USERNAME_RESET_CONFIRM_URL': '#/username/reset/confirm/{uid}/{token}',
+    'ACTIVATION_URL': '#/activate/{uid}/{token}',
+    'SEND_ACTIVATION_EMAIL': True,
+    }
+    
+    SITE_NAME = 'Remotive Jobs'
+    DOMAIN = 'remotive.jobs'
+    
+    REST_FRAMEWORK = {
+        "DEFAULT_AUTHENTICATION_CLASSES": ['rest_framework_simplejwt.authentication.JWTAuthentication']
+    }
 
 class Development(Common):
     """
@@ -163,12 +177,15 @@ class Development(Common):
     MIDDLEWARE = Common.MIDDLEWARE + [
         'debug_toolbar.middleware.DebugToolbarMiddleware'
     ]
-
+    
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+    
 
 class Staging(Common):
     """
     The in-staging settings.
     """
+    
     # Security
     SESSION_COOKIE_SECURE = values.BooleanValue(True)
     SECURE_BROWSER_XSS_FILTER = values.BooleanValue(True)
