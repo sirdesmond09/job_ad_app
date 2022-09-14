@@ -130,22 +130,6 @@ def republish_advert(request, advert_id):
             return Response({"error":"not found","message":"failed"}, status=status.HTTP_404_NOT_FOUND)
         
         
-@api_view(["GET"])
-@authentication_classes([JWTAuthentication])
-@permission_classes([IsAuthenticated])
-def unpublish_advert(request, advert_id):
-    """Allows logged in user to unpublish an advert"""
-    
-    if request.method == 'GET':
-        try:
-            advert = JobAdvert.objects.get(id=advert_id, status="published")
-            advert.status = "unpublished"
-            advert.save()
-       
-            return Response({"message":"success"}, status=status.HTTP_204_NO_CONTENT)
-        
-        except JobAdvert.DoesNotExist:
-            return Response({"error":"not found","message":"failed"}, status=status.HTTP_404_NOT_FOUND)
         
         
         

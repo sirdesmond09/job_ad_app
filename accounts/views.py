@@ -1,8 +1,6 @@
-from django.shortcuts import render
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes, authentication_classes
-from rest_framework_simplejwt.token_blacklist.models import OutstandingToken, BlacklistedToken
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from django.contrib.auth import logout, authenticate
@@ -10,7 +8,6 @@ from rest_framework import status
 from drf_yasg.utils import swagger_auto_schema
 from accounts.serializers import LogoutSerializer, LoginSerializer
 from rest_framework_simplejwt.exceptions import TokenError
-from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth.signals import user_logged_in, user_logged_out
 # Create your views here.
 

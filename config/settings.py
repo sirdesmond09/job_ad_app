@@ -85,6 +85,8 @@ class Common(Configuration):
         'sqlite:///{}'.format(os.path.join(BASE_DIR, 'db.sqlite3'))
     )
     
+    
+    
 
     # Password validation
     # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
@@ -118,7 +120,7 @@ class Common(Configuration):
     # Static files (CSS, JavaScript, Images)
     # https://docs.djangoproject.com/en/3.0/howto/static-files/
     STATIC_URL = '/static/'
-    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
     # Default primary key field type
@@ -186,6 +188,7 @@ class Staging(Common):
     The in-staging settings.
     """
     
+    ALLOWED_HOSTS = ['localhost']
     # Security
     SESSION_COOKIE_SECURE = values.BooleanValue(True)
     SECURE_BROWSER_XSS_FILTER = values.BooleanValue(True)
@@ -198,6 +201,9 @@ class Staging(Common):
     SECURE_PROXY_SSL_HEADER = values.TupleValue(
         ('HTTP_X_FORWARDED_PROTO', 'https')
     )
+    SECURE_HSTS_PRELOAD = values.BooleanValue(True)
+    CSRF_COOKIE_SECURE = values.BooleanValue(True)
+    
 
 
 class Production(Staging):
