@@ -22,7 +22,12 @@ def login_view(request):
         
         serializer.is_valid(raise_exception=True)
         
-        user = authenticate(request, username = serializer.validated_data['username'], password = serializer.validated_data['password'])
+        if "username" in serializer.validated_data.keys():
+            user = authenticate(request, username = serializer.validated_data['username'], password = serializer.validated_data['password'])
+        elif "email" in serializer.validated_data.keys():
+            print(serializer.validated_data.get("email"))
+            user = authenticate(request, email = serializer.validated_data['email'], password = serializer.validated_data['password'])
+            
         if user:
             if user.is_active:
                 try:

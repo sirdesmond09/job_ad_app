@@ -105,6 +105,11 @@ class Common(Configuration):
         },
     ]
 
+    AUTHENTICATION_BACKENDS = [
+    'django.contrib.auth.backends.ModelBackend',
+    'accounts.auth.CustomUserAuthBackend'
+    ]
+    
     # Internationalization
     # https://docs.djangoproject.com/en/3.0/topics/i18n/
     LANGUAGE_CODE = 'en-us'
@@ -180,8 +185,13 @@ class Development(Common):
         'debug_toolbar.middleware.DebugToolbarMiddleware'
     ]
     
-    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
-    
+    EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+    EMAIL_USE_TLS = True
+    EMAIL_USE_SSL = False
+    EMAIL_HOST = 'smtp.gmass.co'
+    EMAIL_PORT = 465
+    EMAIL_HOST_USER = 'gmass'
+    EMAIL_HOST_PASSWORD = 'mmmmm'
 
 class Staging(Common):
     """

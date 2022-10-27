@@ -8,9 +8,6 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         fake = Faker()
-
-
-        JobAdvert.objects.all().delete()
         
         job1 = JobAdvert.objects.create(title='Backend Developer', 
                                     company_name="Torilo", 
